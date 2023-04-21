@@ -7,10 +7,6 @@ import time
 import os
 import subprocess
 
-home=os.environ.get('HOME')
-scratch="/dev/shm"    # the scratch directory, preferably ram disk
-h5repack=os.path.join(home,bin,"h5repack")+" "  # call to h5repack
-h5dump_pH=os.path.join(home.bin."h5dump") -pH " # call to h5dump -pH
 xbasename=sys.argv[1] # the basename without the h5 extension
 oldname=xbasename+".h5"
 compression=sys.argv[2] # the new compression
@@ -33,8 +29,8 @@ elif compression.lower()=="bloscbslz4":
 else:
     print(" invalid compression choice: "+compression)
     exit(1)
-newname=os.path.join(scratch,xbasename+"_"+compression+"_"+clevel+"other.h5")
-repackname=os.path.join(scratch,xbasename+"_"+compression+"_"+clevel+"_repackother.h5")
+newname=os.path.join("/dev/shm",xbasename+"_"+compression+"_"+clevel+"other.h5")
+repackname=os.path.join("/dev/shm",xbasename+"_"+compression+"_"+clevel+"_repackother.h5")
 print(" converting '"+oldname+"' to '"+newname+"'")
 shutil.copyfile(oldname, newname)
 
@@ -42,13 +38,13 @@ with h5py.File(newname, 'r+') as hf: ## open in read/write mode
     try:
       myentry = hf['entry']
     except:
-      print(" failed to find entry group ")
+      print(" failed to find to level entry group ")
       hf.close()
       exit(1)
     try:
       mydatagroup = myentry["data"]
     except:
-      print(" failed to find entry/data group ")
+      print(" failed to find to entry/data group ")
       hf.close()
       exit(1)
     try:
@@ -99,9 +95,9 @@ with h5py.File(newname, 'r+') as hf: ## open in read/write mode
     except:
       print(" failed to get the data dataset")
     hf.close()
-    os.system(h5repack+newname+" "+repackname)
+    os.system("/nsls2/users/hbernstein/bin/h5repack "+newname+" "+repackname)
     os.system("rm "+newname)
-    os.system(h5dump_pH+repackname+"|grep ' SIZE'")
+    os.system("/nsls2/users/hbernstein/bin/h5dump -pH "+repackname+"|grep ' SIZE'")
     os.system("ls -alt "+repackname)
     os.system("rm "+repackname)
 

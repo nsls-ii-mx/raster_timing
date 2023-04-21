@@ -1,0 +1,80 @@
+#!/bin/bash 
+. /nsls2/software/mx/dials-v3-7-2/dials_env.sh
+file=$1; echo "file: $file"
+compression="${2}xx"
+basename=${file##*/}; #echo "basename: $basename"
+target=${basename%.*}; #echo "target: $target"
+echo "processing $PWD $file compression: $compression"
+if [ "$compression" == "lz4xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} lz4
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} lz4
+fi
+if [ "$compression" == "bslz4xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} bslz4
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} bslz4
+fi
+if [ "$compression" == "slz4xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} slz4
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} slz4
+fi
+if [ "$compression" == "zstd 2xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} zstd 2
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} zstd 2
+fi
+if [ "$compression" == "zstd 3xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} zstd 3
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} zstd 3
+fi
+if [ "$compression" == "zstd 4xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} zstd 4
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} zstd 4
+fi
+if [ "$compression" == "zstd 5xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} zstd 5
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} zstd 5
+fi
+if [ "$compression" == "zstd 6xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} zstd 6
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} zstd 6
+fi
+if [ "$compression" == "bszstd 2xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} bszstd 2
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} bszstd 2
+fi
+if [ "$compression" == "bszstd 3xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} bszstd 3
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} bszstd 3
+fi
+if [ "$compression" == "bszstd 4xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} bszstd 4
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} bszstd 4
+fi
+if [ "$compression" == "bszstd 5xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} bszstd 5
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} bszstd 5
+fi
+if [ "$compression" == "bszstd 6xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} bszstd 6
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} bszstd 6
+fi
+if [ "$compression" == "szstd 2xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} szstd 2
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} szstd 2
+fi
+if [ "$compression" == "szstd 3xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} szstd 3
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} szstd 3
+fi
+if [ "$compression" == "szstd 4xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} szstd 4
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} szstd 4
+fi
+if [ "$compression" == "szstd 5xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} szstd 5
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} szstd 5
+fi
+if [ "$compression" == "szstd 6xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5otherrecompress3.py ${target} szstd 6
+echo cctbx.python ~/bin/h5otherrecompress3.py ${target} szstd 6
+fi
+

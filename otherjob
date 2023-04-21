@@ -1,5 +1,4 @@
 #!/bin/bash 
-# initialize for dials 3
 . /nsls2/software/mx/dials-v3-7-2/dials_env.sh
 file=$1; echo "file: $file"
 compression="${2}xx"

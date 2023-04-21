@@ -1,0 +1,88 @@
+#!/bin/bash 
+. /nsls2/software/mx/dials-v3-7-2/dials_env.sh
+file=$1; echo "file: $file"
+compression="${2}xx"
+start=$3
+count=$4
+if [ "${start}xx" == "xx" ]; then
+  start="0"
+fi
+if [ "${count}xx" == "xx" ]; then
+  count="0"
+fi 
+basename=${file##*/}; #echo "basename: $basename"
+target=${basename%.*}; #echo "target: $target"
+echo "processing $PWD $file, compression: $compression $start $count"
+if [ "$compression" == "lz4xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} lz4 2 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} lz4 2 $start $count
+fi
+if [ "$compression" == "bslz4xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} bslz4 2 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} bslz4 2 $start $count
+fi
+if [ "$compression" == "slz4xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} slz4 2 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} slz4 2 $start $count
+fi
+if [ "$compression" == "zstd 2xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} zstd 2 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} zstd 2 $start $count
+fi
+if [ "$compression" == "zstd 3xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} zstd 3 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} zstd 3 $start $count
+fi
+if [ "$compression" == "zstd 4xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} zstd 4 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} zstd 4 $start $count
+fi
+if [ "$compression" == "zstd 5xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} zstd 5 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} zstd 5 $start $count
+fi
+if [ "$compression" == "zstd 6xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} zstd 6 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} zstd 6 $start $count
+fi
+if [ "$compression" == "bszstd 2xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} bszstd 2 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} bszstd 2 $start $count
+fi
+if [ "$compression" == "bszstd 3xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} bszstd 3 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} bszstd 3 $start $count
+fi
+if [ "$compression" == "bszstd 4xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} bszstd 4 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} bszstd 4 $start $count
+fi
+if [ "$compression" == "bszstd 5xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} bszstd 5 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} bszstd 5 $start $count
+fi
+if [ "$compression" == "bszstd 6xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} bszstd 6 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} bszstd 6 $start $count
+fi
+if [ "$compression" == "szstd 2xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} szstd 2 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} szstd 2 $start $count
+fi
+if [ "$compression" == "szstd 3xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} szstd 3 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} szstd 3 $start $count
+fi
+if [ "$compression" == "szstd 4xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} szstd 4 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} szstd 4 $start $count
+fi
+if [ "$compression" == "szstd 5xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} szstd 5 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} szstd 5 $start $count
+fi
+if [ "$compression" == "szstd 6xx" ] || [ "$compression" == "xx" ]; then
+cctbx.python ~/bin/h5recompress6.py ${target} szstd 6 $start $count
+echo cctbx.python ~/bin/h5recompress6.py ${target} szstd 6 $start $count
+fi
+

@@ -1,21 +1,56 @@
-#!/bin/bash
-# initialize for dials 3
+#!/bin/bash 
 . /nsls2/software/mx/dials-v3-7-2/dials_env.sh
-file=$1
-dirname=${file%/*}
-basename=${file##*/}
-target=${dirname}/${basename%.*}
-echo "processing $PWD $file"
+file=$1; echo "file: $file"
+compression="${2}xx"
+basename=${file##*/}; #echo "basename: $basename"
+target=${basename%.*}; #echo "target: $target"
+echo "processing $PWD $file, compression: $compression"
+if [ "$compression" == "lz4xx" ] || [ "$compression" == "xx" ]; then
 cctbx.python ~/bin/h5recompress.py ${target} lz4
+echo cctbx.python ~/bin/h5recompress.py ${target} lz4
+fi
+if [ "$compression" == "bslz4xx" ] || [ "$compression" == "xx" ]; then
 cctbx.python ~/bin/h5recompress.py ${target} bslz4
+echo cctbx.python ~/bin/h5recompress.py ${target} bslz4
+fi
+if [ "$compression" == "zstd 2xx" ] || [ "$compression" == "xx" ]; then
 cctbx.python ~/bin/h5recompress.py ${target} zstd 2
+echo cctbx.python ~/bin/h5recompress.py ${target} zstd 2
+fi
+if [ "$compression" == "zstd 3xx" ] || [ "$compression" == "xx" ]; then
 cctbx.python ~/bin/h5recompress.py ${target} zstd 3
+echo cctbx.python ~/bin/h5recompress.py ${target} zstd 3
+fi
+if [ "$compression" == "zstd 4xx" ] || [ "$compression" == "xx" ]; then
 cctbx.python ~/bin/h5recompress.py ${target} zstd 4
+echo cctbx.python ~/bin/h5recompress.py ${target} zstd 4
+fi
+if [ "$compression" == "zstd 5xx" ] || [ "$compression" == "xx" ]; then
 cctbx.python ~/bin/h5recompress.py ${target} zstd 5
+echo cctbx.python ~/bin/h5recompress.py ${target} zstd 5
+fi
+if [ "$compression" == "zstd 6xx" ] || [ "$compression" == "xx" ]; then
 cctbx.python ~/bin/h5recompress.py ${target} zstd 6
+echo cctbx.python ~/bin/h5recompress.py ${target} zstd 6
+fi
+if [ "$compression" == "bszstd 2xx" ] || [ "$compression" == "xx" ]; then
 cctbx.python ~/bin/h5recompress.py ${target} bszstd 2
+echo cctbx.python ~/bin/h5recompress.py ${target} bszstd 2
+fi
+if [ "$compression" == "bszstd 3xx" ] || [ "$compression" == "xx" ]; then
 cctbx.python ~/bin/h5recompress.py ${target} bszstd 3
+echo cctbx.python ~/bin/h5recompress.py ${target} bszstd 3
+fi
+if [ "$compression" == "bszstd 4xx" ] || [ "$compression" == "xx" ]; then
 cctbx.python ~/bin/h5recompress.py ${target} bszstd 4
+echo cctbx.python ~/bin/h5recompress.py ${target} bszstd 4
+fi
+if [ "$compression" == "bszstd 5xx" ] || [ "$compression" == "xx" ]; then
 cctbx.python ~/bin/h5recompress.py ${target} bszstd 5
+echo cctbx.python ~/bin/h5recompress.py ${target} bszstd 5
+fi
+if [ "$compression" == "bszstd 6xx" ] || [ "$compression" == "xx" ]; then
 cctbx.python ~/bin/h5recompress.py ${target} bszstd 6
+echo cctbx.python ~/bin/h5recompress.py ${target} bszstd 6
+fi
 

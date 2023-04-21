@@ -14,23 +14,37 @@ if len(sys.argv) > 3:
   clevel=sys.argv[3]
 else:
   clevel="2" 
+if len(sys.argv) > 4:
+  firstimage=int(sys.argv[4])
+else:
+  firstimage=0
+if len(sys.argv) > 5:
+  numimages=int(sys.argv[5])
+else:
+  numimages=0
 if compression.lower()=="zstd":
     compression="zstd"
 elif compression.lower()=="bszstd":
     compression="bszstd"
+elif compression.lower()=="szstd":
+    compression="szstd"
 elif compression.lower()=="lz4":
     compression="lz4"
 elif compression.lower()=="bslz4":
     compression="bslz4"
+elif compression.lower()=="slz4":
+    compression="slz4"
 elif compression.lower()=="blosclz4":
     compression="blosclz4"
 elif compression.lower()=="bloscbslz4":
     compression="bloscbslz4"
+elif compression.lower()=="bloscslz4":
+    compression="bloscslz4"
 else:
     print(" invalid compression choice: "+compression)
     exit(1)
-newname=os.path.join("/dev/shm",xbasename+"_"+compression+"_"+clevel+".h5")
-repackname=os.path.join("/dev/shm",xbasename+"_"+compression+"_"+clevel+"_repack.h5")
+newname=os.path.join("/dev/shm",xbasename+"_"+compression+"_"+clevel+"_"+str(firstimage)+"_"+str(numimages)+".h5")
+repackname=os.path.join("/dev/shm",xbasename+"_"+compression+"_"+clevel+"_"+str(firstimage)+"_"+str(numimages)+"_repack.h5")
 print(" converting '"+oldname+"' to '"+newname+"'")
 shutil.copyfile(oldname, newname)
 
@@ -51,8 +65,19 @@ with h5py.File(newname, 'r+') as hf: ## open in read/write mode
       mydatadataset = mydatagroup["data"]
       mydatasatesetattrs = mydatagroup["data"].attrs
       print(mydatadataset)
-      mydata = numpy.copy(mydatadataset[:])
+      mydatadataset_shape=mydatadataset.shape
+      mydatadataset_shape_0=mydatadataset.shape[0]
+      if numimages=="0":
+        numimages=mydatadataset_shape_0
+      mydatadataset_shape_1=mydatadataset.shape[1]
+      mydatadataset_shape_2=mydatadataset.shape[2]
+      print("mydatadataset.shape: ", mydatadataset_shape)
+      print("mydata images: ", numimages)
+      print("mydatadataset.shape_1: ", mydatadataset_shape_1)
+      print("mydatadataset.shape_2: ", mydatadataset_shape_2)
+      mydata = numpy.copy(mydatadataset[firstimage:firstimage+numimages])
       del mydatagroup["data"] ## deleting dataset!
+      print("mydata.shape: ",mydata.shape)
 
       t1=time.process_time()
       ### write with hdf5plugin
@@ -62,6 +87,11 @@ with h5py.File(newname, 'r+') as hf: ## open in read/write mode
         data=mydata,chunks=( 1, 3269, 3110 ),
         **hdf5plugin.Blosc(cname='zstd', clevel=clevel, shuffle=hdf5plugin.Blosc.NOSHUFFLE))
       elif compression=="bszstd":
+        mydatagroup.create_dataset(
+        'data',
+        data=mydata,chunks=( 1, 3269, 3110 ),
+        **hdf5plugin.Blosc(cname='zstd', clevel=clevel, shuffle=hdf5plugin.Blosc.BITSHUFFLE))
+      elif compression=="szstd":
         mydatagroup.create_dataset(
         'data',
         data=mydata,chunks=( 1, 3269, 3110 ),
@@ -76,12 +106,22 @@ with h5py.File(newname, 'r+') as hf: ## open in read/write mode
         'data',
         data=mydata,chunks=( 1, 3269, 3110 ),
         **hdf5plugin.Bitshuffle(nelems=0, lz4=True))
+      elif compression=="slz4":
+        mydatagroup.create_dataset(
+        'data',
+        data=mydata,chunks=( 1, 3269, 3110 ),
+        **hdf5plugin.Blosc(cname='lz4', clevel=clevel, shuffle=hdf5plugin.Blosc.SHUFFLE))
       elif compression=="blosclz4":
         mydatagroup.create_dataset(
         'data',
         data=mydata,chunks=( 1, 3269, 3110 ),
         **hdf5plugin.Blosc(cname='lz4', clevel=clevel, shuffle=hdf5plugin.Blosc.NOSHUFFLE))
       elif compression=="bloscbslz4":
+        mydatagroup.create_dataset(
+        'data',
+        data=mydata,chunks=( 1, 3269, 3110 ),
+        **hdf5plugin.Blosc(cname='lz4', clevel=clevel, shuffle=hdf5plugin.Blosc.BITSHUFFLE))
+      elif compression=="bloscslz4":
         mydatagroup.create_dataset(
         'data',
         data=mydata,chunks=( 1, 3269, 3110 ),
